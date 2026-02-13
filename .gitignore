@@ -31,7 +31,7 @@ tef-wrapper/.vite/
 # DOCKER / RUNTIME
 
 # ================================
-
+config/
 data/
 
 # ================================
@@ -40,7 +40,6 @@ data/
 
 # ================================
 
-config/*.lic       # skyline license file
 nginx/certs/       # ssl certs + keys
 *.pem
 *.key
