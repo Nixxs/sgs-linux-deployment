@@ -1,0 +1,60 @@
+# ================================
+
+# GENERAL
+
+# ================================
+
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+
+# ================================
+
+# NODE / REACT (tef-wrapper)
+
+# ================================
+
+tef-wrapper/node_modules/
+tef-wrapper/dist/
+tef-wrapper/build/
+tef-wrapper/.env
+tef-wrapper/.env.*
+tef-wrapper/npm-debug.log*
+tef-wrapper/yarn-error.log*
+tef-wrapper/.vite/
+
+# ================================
+
+# DOCKER / RUNTIME
+
+# ================================
+
+data/
+
+# ================================
+
+# SKYLINE / LICENSE / SECRETS
+
+# ================================
+
+config/*.lic       # skyline license file
+nginx/certs/       # ssl certs + keys
+*.pem
+*.key
+*.crt
+*.pfx
+
+# ================================
+
+# OS / EDITOR
+
+# ================================
+
+.vscode/
+.idea/
+*.bak
+*~
+
