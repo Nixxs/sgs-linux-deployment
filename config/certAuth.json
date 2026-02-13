@@ -1,0 +1,13 @@
+
+{
+    "hostMaps": [
+        {
+            "host": "",
+            "certFile": "",
+            "keyFile": "",
+            "caFile": "",
+            "pfxFile": "",
+            "pfxPassword": ""
+        }
+    ]
+}

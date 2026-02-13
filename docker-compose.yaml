@@ -1,0 +1,55 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: always 
+    depends_on:
+      - skylineglobeserver
+      - tef-wrapper
+    ports:
+      - "443:443"    # External 8443 maps to internal NGINX HTTPS port 443
+    volumes:  # Mount local folders for data persistence
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    networks:
+      - skyline_network
+
+  skylineglobeserver:
+    image: skylineglobe/skylineglobeserver:latest # Docker image to use
+    container_name: skylineglobeserver
+    restart: always 
+    expose:
+      - "5155" # Expose for internal use
+    environment:   # Configure SGS
+      SGS__ServerConfig__CatalogDBType: SQLite
+      SGS__ServerConfig__SharedDataPath: /app/data/SkylineGlobeServerConfiguration    
+      SGS__ServerConfig__PublicUrl: https://sgs.ngis.com.au
+      SGS__ServerConfig__LicenseServerURL: "https://cloud.skylineglobe.com/sws/2989a325-9c97-4685-b1b4-fc17a04cda1d"
+      SGS__Kestrel__Endpoints__Http__Url: http://0.0.0.0:5155
+    volumes:  # Mount local folders for data persistence
+      - ./data:/app/data 
+      - ./config:/app/config 
+      # Option 1: Mount a subfolder (keeps the original /app/tef/custom contents)      
+      # - ./more-data:/app/tef/custom/more-data
+      # Option 2: Mount a single file (adds/replaces one file). ":ro" makes the mount read-only      
+      # - ./my-config.json:/app/tef/custom/my-config.json:ro
+      # this is the cleaned up custom.css example from the skylin docs:
+      # URL: https://support.skylinesoft.com/hc/en-us/articles/7761522209308-Customize-Your-User-Interface-Using-Style-Sheets-CSS
+      #- ./custom.css:/app/tef/custom/custom.css
+    networks:
+      - skyline_network
+
+  tef-wrapper:
+    image: nginx:alpine
+    container_name: tef-wrapper
+    restart: always
+    volumes:
+      - ./tef-wrapper/dist:/usr/share/nginx/html:ro
+      - ./tef-wrapper/nginx-static.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - skyline_network
+
+networks:
+  skyline_network:
+    driver: bridge
+
