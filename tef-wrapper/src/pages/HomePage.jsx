@@ -1,12 +1,14 @@
 import { Box, Container } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import TerraExplorerControls from "../components/TerraExplorerControls";
+import WeatherPanel from "../components/WeatherPanel";
 
 export default function HomePage() {
   const iframeRef = useRef(null);
   const [sgWorld, setSgWorld] = useState(null);
   const [iframeWindow, setIframeWindow] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [weatherOpen, setWeatherOpen] = useState(false);
 
   useEffect(() => {
     if (!iframeLoaded) return;
@@ -49,6 +51,11 @@ export default function HomePage() {
     };
   }, [iframeLoaded]);
 
+  const toggleWeather = () => {
+    console.log("weather toggled");
+    setWeatherOpen((prev) => !prev);
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -89,20 +96,30 @@ export default function HomePage() {
       <Box
         sx={{
           position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 120,
-          backdropFilter: "blur(10px)",
-          background: "rgba(20,20,20,0.65)",
-          borderTop: "1px solid rgba(255,255,255,0.1)",
+          top: 12,
+          left: 12,
           display: "flex",
-          alignItems: "center",
-          px: 3,
+          gap: 1,                  // spacing between buttons
+          // backdropFilter: "blur(10px)",
+          // background: "rgba(20,20,20,0.65)",
+          // border: "1px solid rgba(255,255,255,0.1)",
+          // borderRadius: 2,
+          // padding: 1,
           zIndex: 5,
         }}
       >
-        <TerraExplorerControls sgWorld={sgWorld} iframeWindow={iframeWindow} />
+        <TerraExplorerControls
+          sgWorld={sgWorld}
+          iframeWindow={iframeWindow}
+          toggleWeather={toggleWeather}
+        />
+
+        {weatherOpen && (
+          <WeatherPanel
+            toggleWeather={toggleWeather}
+          />
+        )}
+
       </Box>
     </Container>
   );

@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 
 const theme = createTheme({
-  palette: { mode: "dark" }, // flip to "light" if you want
+  palette: { mode: "light" }, // flip to "light" if you want
 });
 
 function App() {

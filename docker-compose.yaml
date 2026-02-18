@@ -35,7 +35,7 @@ services:
       # - ./my-config.json:/app/tef/custom/my-config.json:ro
       # this is the cleaned up custom.css example from the skylin docs:
       # URL: https://support.skylinesoft.com/hc/en-us/articles/7761522209308-Customize-Your-User-Interface-Using-Style-Sheets-CSS
-      #- ./custom.css:/app/tef/custom/custom.css
+      - ./custom.css:/app/tef/custom/custom.css
     networks:
       - skyline_network
 
