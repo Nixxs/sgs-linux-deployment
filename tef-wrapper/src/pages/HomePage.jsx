@@ -116,7 +116,7 @@ export default function HomePage() {
 
         <Fade in={weatherOpen} timeout={300} mountOnEnter unmountOnExit>
           <div>
-            <WeatherPanel toggleWeather={toggleWeather} />
+            <WeatherPanel toggleWeather={toggleWeather} sgWorld={sgWorld} />
           </div>
         </Fade>
 

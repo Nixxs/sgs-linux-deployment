@@ -11,7 +11,7 @@ function degToCardinal(deg) {
   return dirs[ix];
 }
 
-function WeatherPanel({ toggleWeather }) {
+function WeatherPanel({ toggleWeather, sgWorld }) {
   const [weatherDays, setWeatherDays] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,8 +19,11 @@ function WeatherPanel({ toggleWeather }) {
     async function fetchWeather() {
       setLoading(true);
       try {
-        const lat = -31.9523;
-        const lon = 115.8613;
+        const sgPosition = sgWorld.Navigate.GetPosition();
+        console.log(sgPosition);
+
+        const lat = sgPosition.Y;
+        const lon = sgPosition.X;
 
         const res = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
         const data = await res.json();
@@ -84,7 +87,7 @@ function WeatherPanel({ toggleWeather }) {
         position: "absolute",
         top: "52px",
         left: "2px",
-        width: 670,
+        width: 675,
         backgroundColor: "#e9e9e9",
         borderRadius: 2,
         boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
