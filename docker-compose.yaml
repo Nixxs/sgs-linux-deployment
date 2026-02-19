@@ -39,6 +39,16 @@ services:
     networks:
       - skyline_network
 
+  api:
+    build: ./api
+    container_name: api
+    environment:
+      GOOGLE_WEATHER_API_KEY: ${GOOGLE_WEATHER_API_KEY}
+    ports:
+      - "8000:8000"
+    networks:
+      - skyline_network
+
   tef-wrapper:
     image: nginx:alpine
     container_name: tef-wrapper

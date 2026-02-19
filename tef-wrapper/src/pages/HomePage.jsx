@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Fade, Box, Container } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import TerraExplorerControls from "../components/TerraExplorerControls";
 import WeatherPanel from "../components/WeatherPanel";
@@ -114,11 +114,11 @@ export default function HomePage() {
           toggleWeather={toggleWeather}
         />
 
-        {weatherOpen && (
-          <WeatherPanel
-            toggleWeather={toggleWeather}
-          />
-        )}
+        <Fade in={weatherOpen} timeout={300} mountOnEnter unmountOnExit>
+          <div>
+            <WeatherPanel toggleWeather={toggleWeather} />
+          </div>
+        </Fade>
 
       </Box>
     </Container>
