@@ -154,7 +154,7 @@ function TerraExplorerControls({ sgWorld, iframeWindow, toggleWeather }) {
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="7 Day Forecast">
+      <Tooltip title="5 Day Forecast">
         <IconButton
           size="small"
           onClick={toggleWeather}

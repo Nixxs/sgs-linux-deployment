@@ -14,6 +14,7 @@ function degToCardinal(deg) {
 function WeatherPanel({ toggleWeather, sgWorld }) {
   const [weatherDays, setWeatherDays] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [locationLabel, setLocationLabel] = useState("");
 
   useEffect(() => {
     async function fetchWeather() {
@@ -27,6 +28,8 @@ function WeatherPanel({ toggleWeather, sgWorld }) {
 
         const res = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
         const data = await res.json();
+        setLocationLabel(data.location ?? `${lat.toFixed(3)}, ${lon.toFixed(3)}`);
+
         const days = data.forecastDays || [];
 
         const parsed = days.slice(0, 7).map((day) => {
@@ -87,7 +90,7 @@ function WeatherPanel({ toggleWeather, sgWorld }) {
         position: "absolute",
         top: "52px",
         left: "2px",
-        width: 675,
+        width: 685,
         backgroundColor: "#e9e9e9",
         borderRadius: 2,
         boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
@@ -107,7 +110,7 @@ function WeatherPanel({ toggleWeather, sgWorld }) {
           fontWeight: 600,
         }}
       >
-        5 Day Weather Forecast
+        {`5 Day Weather Forecast: ${locationLabel || "Loading..."}`}
 
         <IconButton size="small" onClick={toggleWeather}>
           ✕
