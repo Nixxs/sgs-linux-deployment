@@ -23,8 +23,8 @@ services:
     environment:   # Configure SGS
       SGS__ServerConfig__CatalogDBType: SQLite
       SGS__ServerConfig__SharedDataPath: /app/data/SkylineGlobeServerConfiguration    
-      SGS__ServerConfig__PublicUrl: https://sgs.ngis.com.au
-      SGS__ServerConfig__LicenseServerURL: "https://cloud.skylineglobe.com/sws/2989a325-9c97-4685-b1b4-fc17a04cda1d"
+      SGS__ServerConfig__PublicUrl: https://athens.tracemark.com:443
+      SGS__ServerConfig__LicenseServerURL: "https://cloud.skylineglobe.com/sws/6672398f-5035-4445-984a-c9c51480f306"
       SGS__Kestrel__Endpoints__Http__Url: http://0.0.0.0:5155
     volumes:  # Mount local folders for data persistence
       - ./data:/app/data 
@@ -36,16 +36,16 @@ services:
       # this is the cleaned up custom.css example from the skylin docs:
       # URL: https://support.skylinesoft.com/hc/en-us/articles/7761522209308-Customize-Your-User-Interface-Using-Style-Sheets-CSS
       - ./custom.css:/app/tef/custom/custom.css
+      - ./SGServices.json:/app/Resources/SGServices.json
     networks:
       - skyline_network
 
   api:
     build: ./api
     container_name: api
+    restart: always
     environment:
       GOOGLE_WEATHER_API_KEY: ${GOOGLE_WEATHER_API_KEY}
-    ports:
-      - "8000:8000"
     networks:
       - skyline_network
 

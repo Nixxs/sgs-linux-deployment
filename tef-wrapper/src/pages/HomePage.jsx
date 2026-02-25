@@ -25,7 +25,6 @@ export default function HomePage() {
         const win = iframeRef.current?.contentWindow;
         const SGWorld = win?.SGWorld;
 
-        // Creator tends to appear once fully initialized
         if (SGWorld?.Creator) {
           setSgWorld(SGWorld);
           setIframeWindow(win);
@@ -33,7 +32,6 @@ export default function HomePage() {
           return;
         }
       } catch (e) {
-        // If this throws, it's usually cross-origin. In your case it should not.
         console.warn("Error accessing iframe SGWorld:", e);
       }
 
@@ -82,7 +80,7 @@ export default function HomePage() {
           component="iframe"
           ref={iframeRef}
           id="tefFrame"
-          src="https://sgs.ngis.com.au/TEF/TE.html?project=https://sgs.ngis.com.au/Default/projects/AthensFloodMap.47576"
+          src="https://athens.tracemark.com/TEF/TE.html?project=https://athens.tracemark.com/projects/AthensFloodMap.47371"
           allow="cross-origin-isolated"
           onLoad={() => setIframeLoaded(true)}
           sx={{
@@ -112,6 +110,7 @@ export default function HomePage() {
           sgWorld={sgWorld}
           iframeWindow={iframeWindow}
           toggleWeather={toggleWeather}
+          weatherOpen={weatherOpen}
         />
 
         <Fade in={weatherOpen} timeout={300} mountOnEnter unmountOnExit>

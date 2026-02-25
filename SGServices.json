@@ -1,0 +1,44 @@
+{
+  "FeatureLayers": [
+    {
+      "Name": "Borders and Places",
+      "Tooltip": "",
+      "Description": "",
+      "Value": "https://cloud.skylineglobe.com/SG/projects/OSMbordersandplaces"
+    },
+    {
+      "Name": "Points of Interest",
+      "Tooltip": "",
+      "Description": "",
+      "Value": "https://cloud.skylineglobe.com/SG/projects/OSMPointsofInterest"
+    },
+    {
+      "Name": "Streets and Roads",
+      "Tooltip": "",
+      "Description": "",
+      "Value": "https://cloud.skylineglobe.com/SG/projects/OSMRoadsandStreets"
+    },
+    {
+      "Name": "Buildings",
+      "Tooltip": "",
+      "Description": "",
+      "Value": "https://cloud.skylineglobe.com/SG/projects/OSMBuildings"
+    }
+  ],
+  "MapLayers": [
+   {
+      "Name": "Satellite",
+      "Tooltip": "",
+      "Description": "",
+      "Value": "https://cloud.skylineglobe.com/SG/projects/Satellite_mpt"
+    }
+  ],
+  "AddressSearch": [
+    {
+      "Name": "Address Search",
+      "Tooltip": "",
+      "Description": "",
+      "Value": "https://athens.tracemark.com/api/address?"
+    }
+  ]
+}

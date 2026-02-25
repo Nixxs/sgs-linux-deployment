@@ -6,35 +6,40 @@ import StraightenIcon from "@mui/icons-material/Straighten";
 import CropFreeIcon from "@mui/icons-material/CropFree";
 import CloudIcon from "@mui/icons-material/Cloud";
 
-function TerraExplorerControls({ sgWorld, iframeWindow, toggleWeather }) {
+function TerraExplorerControls({ sgWorld, iframeWindow, toggleWeather, weatherOpen }) {
   const connected = !!sgWorld;
 
   const openProjectTree = () => {
+    weatherOpen && toggleWeather();
     iframeWindow.$('#LayersBtn').trigger('click');
     iframeWindow.$('#layersButtonState2').trigger('click');
   }
 
   const openSearch = () => {
+    weatherOpen && toggleWeather();
     iframeWindow.$('#SearchBtn').trigger('click');
   }
 
   const openMeasureTool = () => {
+    weatherOpen && toggleWeather();
     iframeWindow.analysis.openAnalysisToolURL({
       name: "distanceMeasurement",
-      url: "https://sgs.ngis.com.au/TEF/Tools/DistanceMeasurement/distanceMeasurement.html",
+      url: "https://athens.tracemark.com/TEF/Tools/DistanceMeasurement/distanceMeasurement.html",
       title: "Distance Measurment"
     });
   }
 
   const openAreaTool = () => {
+    weatherOpen && toggleWeather();
     iframeWindow.analysis.openAnalysisToolURL({
       name: "areaMeasurement",
-      url: "https://sgs.ngis.com.au/TEF/Tools/AreaMeasurement/AreaMeasurement.html",
+      url: "https://athens.tracemark.com/TEF/Tools/AreaMeasurement/AreaMeasurement.html",
       title: "Area Measurment"
     });
   }
 
   const openEnvironment = () => {
+    weatherOpen && toggleWeather();
     iframeWindow.$('#AnalysisBtn').trigger('click');
     iframeWindow.$('#analysisTabButton1').trigger('click');
   }
