@@ -2,10 +2,12 @@ import { Fade, Box, Container } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import TerraExplorerControls from "../components/TerraExplorerControls";
 import WeatherPanel from "../components/WeatherPanel";
+import Legend from "../components/Legend";
 
 export default function HomePage() {
   const iframeRef = useRef(null);
   const [sgWorld, setSgWorld] = useState(null);
+  const [showLegend, setShowLegend] = useState(true);
   const [iframeWindow, setIframeWindow] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [weatherOpen, setWeatherOpen] = useState(false);
@@ -26,9 +28,37 @@ export default function HomePage() {
         const SGWorld = win?.SGWorld;
 
         if (SGWorld?.Creator) {
+
+          // this shows the legend when the flood risk layer is turned on
+          SGWorld.AttachEvent("OnProjectTreeAction", (id, action) => {    
+            const itemID = id;
+            const actionCode = action.Code;
+
+            if (actionCode == 19){
+              const itemName = SGWorld.ProjectTree.GetItemName(itemID);
+              if (itemName == "Flood Risk Model"){
+                const layerVis = SGWorld.ProjectTree.GetVisibility(itemID);
+
+                switch (layerVis){
+                  // layer was on and about to be turned off
+                  case 1:
+                    setShowLegend(false);
+                    break;
+                  // this means the layer was off and is about to be turned on
+                  case 0:
+                    setShowLegend(true);
+                    break;
+                  default:
+                    console.log(`unknown visibility stage: ${layerVis}`);
+                }
+              }
+            }
+          });
+
           setSgWorld(SGWorld);
           setIframeWindow(win);
           console.log("✅ Connected to iframe SGWorld");
+          
           return;
         }
       } catch (e) {
@@ -80,7 +110,7 @@ export default function HomePage() {
           component="iframe"
           ref={iframeRef}
           id="tefFrame"
-          src="https://athens.tracemark.com/TEF/TE.html?project=https://athens.tracemark.com/projects/AthensFloodMap.47371"
+          src="https://athens.tracemark.com/TEF/TE.html?project=https://athens.tracemark.com/projects/AthensFloodMap"
           allow="cross-origin-isolated"
           onLoad={() => setIframeLoaded(true)}
           sx={{
@@ -120,6 +150,23 @@ export default function HomePage() {
         </Fade>
 
       </Box>
+
+      <Fade in={showLegend} timeout={300} mountOnEnter unmountOnExit>
+        <div>
+          <Legend />
+        </div>
+      </Fade>
+
+      <Box
+        sx={{position: "absolute", bottom: 4, left: 12, gap: 1, display: "flex", zIndex: 5,}}
+      >
+        <img 
+          src="https://athens.tracemark.com/app/google_logo.svg" 
+          alt="google logo"
+          style={{ height: 32, width: "auto"}}
+        /> 
+      </Box>
+
     </Container>
   );
 }

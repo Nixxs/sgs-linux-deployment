@@ -37,6 +37,7 @@ services:
       # URL: https://support.skylinesoft.com/hc/en-us/articles/7761522209308-Customize-Your-User-Interface-Using-Style-Sheets-CSS
       - ./custom.css:/app/tef/custom/custom.css
       - ./SGServices.json:/app/Resources/SGServices.json
+      - ./Lang/gr:/app/tef/Lang/gr
     networks:
       - skyline_network
 

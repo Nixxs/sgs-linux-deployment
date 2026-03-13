@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import HomePage from './pages/HomePage'
-import NotFoundPage from './pages/NotFoundPage'
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import Popup from './pages/Popup';
 
 const theme = createTheme({
   palette: { mode: "light" }, // flip to "light" if you want
@@ -13,6 +14,7 @@ function App() {
       <CssBaseline />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/popup" element={<Popup />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ThemeProvider>
